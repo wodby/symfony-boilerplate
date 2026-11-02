@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony on Wodby{% endblock %}
+
+{% block stylesheets %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A Symfony starter application running on Wodby.">
+    <link rel="stylesheet" href="{{ asset('welcome.css') }}">
+{% endblock %}
+
+{% block body %}
+    <main class="page-shell">
+        <section class="hero" aria-labelledby="page-title">
+            <div class="eyebrow">
+                <span class="status-dot" aria-hidden="true"></span>
+                Deployment healthy
+            </div>
+            <p class="framework">Symfony + Wodby</p>
+            <h1 id="page-title">Your Symfony app is running.</h1>
+            <p class="intro">
+                The application has been built and deployed successfully. Start with
+                the starter controller, connect your product domain, and make this
+                project your own.
+            </p>
+            <div class="actions">
+                <a class="button button-primary" href="https://symfony.com/doc/7.4/index.html">
+                    Build with Symfony
+                </a>
+                <a class="button button-secondary" href="https://wodby.com/docs/2.0/">
+                    Explore Wodby
+                </a>
+            </div>
+        </section>
+
+        <section class="next-steps" aria-labelledby="next-steps-title">
+            <div class="section-heading">
+                <p class="section-number">01</p>
+                <h2 id="next-steps-title">Make it yours</h2>
+            </div>
+            <ol class="step-grid">
+                <li>
+                    <span class="step-label">Create a controller</span>
+                    <code>php bin/console make:controller ProductController</code>
+                </li>
+                <li>
+                    <span class="step-label">Add your first entity</span>
+                    <code>php bin/console make:entity Product</code>
+                </li>
+                <li>
+                    <span class="step-label">Keep it green</span>
+                    <code>php bin/phpunit</code>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <span>Symfony v{{ symfony_version }}</span>
+        <a href="{{ path('healthz') }}">Health check</a>
+    </footer>
+{% endblock %}
