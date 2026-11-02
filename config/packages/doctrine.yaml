@@ -1,0 +1,55 @@
+doctrine:
+    dbal:
+        # Not "resolve:": a percent-encoded password, such as "%40" for "@",
+        # would be read as a container parameter reference.
+        url: '%env(DATABASE_URL)%'
+        # Picks utf8mb4 or utf8 from the URL's scheme, see
+        # App\DependencyInjection\DatabaseCharsetEnvVarProcessor.
+        charset: '%env(database_charset:DATABASE_URL)%'
+
+        # Without a server version in the URL, Doctrine asks the server for it
+        # when it first connects. Set it here or add "?serverVersion=..." to
+        # DATABASE_URL to avoid that query.
+        #server_version: '17'
+
+        profiling_collect_backtrace: '%kernel.debug%'
+    orm:
+        enable_native_lazy_objects: true
+        validate_xml_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        identity_generation_preferences:
+            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+        auto_mapping: true
+        mappings:
+            App:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
+        controller_resolver:
+            auto_mapping: false
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system
