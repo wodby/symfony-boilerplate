@@ -11,7 +11,6 @@ The starter follows the official Symfony 7.4 LTS skeleton and includes:
 - Doctrine ORM and migrations, Twig, Mailer and Monolog
 - Maker and the web profiler for development
 - tests for the landing page and health endpoint
-- GitHub Actions tests on PHP 8.4 and 8.5
 - a ready-to-use Wodby CI pipeline at `.wodby/pipeline.yml`
 
 ## Local development
